@@ -18,25 +18,21 @@ service firebase.storage {
           && request.resource.contentType.matches('image/.*');
     }
 
-    // ─── مواقع السياحة ───────────────────────────────────────
     match /tourismSites/{allPaths=**} {
       allow read:   if true;
       allow write:  if isVerifiedAdmin() && isValidFile();
       allow delete: if isVerifiedAdmin();
     }
 
-    // ─── فيديو الهيدر ────────────────────────────────────────
     match /videos/{fileName} {
       allow read:  if true;
       allow write: if isVerifiedAdmin();
     }
 
-    // ─── مجلد الاختبار ───────────────────────────────────────
     match /test/{fileName} {
       allow read, write: if isVerifiedAdmin();
     }
 
-    // ─── حظر كل شيء آخر ──────────────────────────────────────
     match /{allPaths=**} {
       allow read, write: if false;
     }
